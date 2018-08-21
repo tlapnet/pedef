@@ -1,0 +1,12 @@
+package-lock.json
+node_modules
+.idea
+dist
+.env
+src/**/*.js
+npm-debug.log
+.vscode
+tmp/*
+fs/*
+verbose.log
+!tmp/.gitkeep
