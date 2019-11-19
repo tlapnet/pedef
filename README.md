@@ -69,6 +69,7 @@ Example of valid options:
 ```
 
 ## How to run locally using docker
+
 1. clone this repo and cd to its folder
 2. `make docker-build`
 3. `make docker-start`
