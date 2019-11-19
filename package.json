@@ -8,40 +8,32 @@
     "test": "NODE_ENV=test ./node_modules/mocha/bin/mocha dist/test/ --recursive --exit",
     "lint": "./node_modules/.bin/tslint ./src/**/*.ts ./test/**/*.ts",
     "build": "rm -rf ./dist && ./node_modules/.bin/tsc --skipLibCheck",
+    "watch": "tsc --watch",
     "fulltest": "NODE_ENV=test npm run build && npm run lint && npm test"
-  },
-  "keywords": [
-    "nodejs"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@gitlab.ispalliance.cz:lotus/pedef.git"
   },
   "author": "Tomas Sedlacek <mail@kedlas.cz>",
   "contributors": [],
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.3",
-    "formidable": "^1.2.1",
-    "pdf-image": "^2.0.0",
-    "pdf-merge": "^1.0.2",
-    "puppeteer": "^1.6.1",
-    "ts-node": "^3.3.0",
-    "typescript": "^2.7.2",
-    "winston": "^2.4.1"
-  },
-  "devDependencies": {
-    "@types/chai": "^4.0.10",
-    "@types/express": "^4.11.1",
+    "@types/chai": "^4.2.5",
+    "@types/express": "^4.17.2",
     "@types/formidable": "^1.0.31",
-    "@types/mocha": "^2.2.48",
-    "@types/nock": "^8.2.1",
-    "@types/node": "^9.6.4",
-    "@types/puppeteer": "^1.5.0",
-    "@types/winston": "^2.3.9",
-    "chai": "^4.1.2",
-    "mocha": "^5.2.0",
-    "nock": "^9.2.5",
-    "tslint": "^5.8.0"
+    "@types/mocha": "^5.2.7",
+    "@types/nock": "^11.1.0",
+    "@types/node": "^12.12.9",
+    "@types/puppeteer": "^1.20.2",
+    "@types/winston": "^2.4.4",
+    "chai": "^4.2.0",
+    "express": "^4.17.1",
+    "formidable": "^1.2.1",
+    "mocha": "^6.2.2",
+    "nock": "^11.7.0",
+    "pdf-image": "^2.0.0",
+    "pdf-merge": "^1.2.0",
+    "puppeteer": "^2.0.0",
+    "ts-node": "^8.5.0",
+    "tslint": "^5.20.1",
+    "typescript": "^3.7.2",
+    "winston": "^2.4.4"
   }
 }
