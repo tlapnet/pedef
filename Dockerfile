@@ -1,6 +1,6 @@
-FROM node:10
+FROM node:13-stretch
 
-RUN apt-get update && apt-get install -y libgconf-2-4 imagemagick ghostscript poppler-utils pdftk
+RUN apt-get update && apt-get install -y libgconf-2-4 imagemagick ghostscript poppler-utils pdftk graphicsmagick
 
 # Install latest chrome dev package and fonts to support major charsets (Chinese, Japanese, Arabic, Hebrew, Thai and a few others)
 # Note: this installs the necessary libs to make the bundled version of Chromium that Puppeteer
@@ -14,14 +14,6 @@ RUN apt-get update && apt-get install -y wget --no-install-recommends \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get purge --auto-remove -y curl \
     && rm -rf /src/*.deb
-
-# It's a good idea to use dumb-init to help prevent zombie chrome processes.
-ADD https://github.com/Yelp/dumb-init/releases/download/v1.2.0/dumb-init_1.2.0_amd64 /usr/local/bin/dumb-init
-RUN chmod +x /usr/local/bin/dumb-init
-
-# Allow these binaries to be executed with root privileges (Don't you dare use this in prod image!)
-RUN chmod u+s /usr/sbin/useradd && \
-    chmod u+s /usr/sbin/groupadd
 
 COPY . /app
 
