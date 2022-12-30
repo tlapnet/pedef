@@ -26,7 +26,7 @@
     "chai": "^4.2.0",
     "express": "^4.17.1",
     "formidable": "^1.2.1",
-    "mocha": "^6.2.2",
+    "mocha": "^10.2.0",
     "nock": "^11.7.0",
     "pdf-image": "^2.0.0",
     "pdf-merge": "^1.2.0",
