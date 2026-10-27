@@ -1,35 +1,29 @@
-import * as winston from "winston";
+import winston from "winston";
 
 const env = process.env.NODE_ENV || "production";
 
-let level;
-switch (env) {
-    case "debug":
-        level = "debug";
-        break;
-    case "test":
-        level = "crit";
-        break;
-    default:
-        level = "info";
-}
+const level = env === "debug" ? "debug" : "info";
 
-// Formats the logged message to single line
-const myPrettyPrint = (obj: {}) => {
-    return JSON.stringify(obj, null, 2).replace(/(?:\r\n|\r|\n)/g, "");
-};
-// Format date on every log line
-const tsFormat = () => (new Date()).toISOString();
+// Single line: "<ISO timestamp> - <level>: <message>" (same shape as the winston 2 console output)
+const lineFormat = winston.format.printf(({timestamp, level: lvl, message, stack}) => {
+    const text = typeof message === "string" ? message : JSON.stringify(message);
+    return `${timestamp} - ${lvl}: ${stack ?? text}`.replace(/(?:\r\n|\r|\n)/g, " ");
+});
 
-const transports = [
-    new (winston.transports.Console)({
-        colorize: true,
-        level,
-        prettyPrint: myPrettyPrint,
-        timestamp: tsFormat(),
-    }),
+const formats = [
+    winston.format.errors({stack: true}),
+    winston.format.timestamp(),
 ];
+if (process.stdout.isTTY) {
+    formats.push(winston.format.colorize());
+}
+formats.push(lineFormat);
 
-const logger = new (winston.Logger)({transports});
+const logger = winston.createLogger({
+    level,
+    silent: env === "test",
+    format: winston.format.combine(...formats),
+    transports: [new winston.transports.Console()],
+});
 
 export default logger;

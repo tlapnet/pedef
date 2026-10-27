@@ -1,8 +1,6 @@
 import {Request, Response} from "express";
-import {File} from "formidable";
 import IMerger from "../pdf/IMerger";
 import BasicHandler from "./BasicHandler";
-import InvalidArgumentError from "./InvalidArgumentError";
 
 export default class MergeHandler extends BasicHandler {
 
@@ -14,29 +12,23 @@ export default class MergeHandler extends BasicHandler {
 
     public async mergeFiles(req: Request, resp: Response): Promise<void> {
         try {
-            const pdfs = await this.getFiles(req);
+            const pdfs = await this.getFiles(req, resp);
             const pdfStream = await this.merger.merge(pdfs);
 
             resp.setHeader("Content-Type", "application/pdf");
             resp.setHeader("Content-Disposition", "attachment; filename=merged.pdf;");
-            pdfStream.pipe(resp);
+            this.sendStream(pdfStream, resp);
         } catch (e) {
             this.handleError(e, resp);
         }
     }
 
-    private async getFiles(req: Request): Promise<string[]> {
-        const { files } = await this.validateFilesUpload(req);
-        if (files.len < 2) {
-            throw new InvalidArgumentError("Please upload at least 2 files to merge.");
-        }
+    private async getFiles(req: Request, resp: Response): Promise<string[]> {
+        const {files} = await this.validateFilesUpload(req, resp);
+        // A single file is accepted and returned unchanged. The original code meant to require 2 files,
+        // but checked the nonexistent "files.len", so the check never fired; clients may rely on that.
 
-        const paths: string[] = [];
-        files.forEach((f: File) => {
-            paths.push(f.path);
-        });
-
-        return paths;
+        return files.map((f) => f.path);
     }
 
 }

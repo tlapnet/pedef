@@ -12,11 +12,11 @@ export default class ThumbnailHandler extends BasicHandler {
 
     public async getThumbnail(req: Request, resp: Response): Promise<void> {
         try {
-            const { files } = await this.validateFilesUpload(req);
+            const {files} = await this.validateFilesUpload(req, resp);
             const imgStream = await this.thumbnailer.create(files[0].path);
 
             resp.setHeader("Content-Type", "image/png");
-            imgStream.pipe(resp);
+            this.sendStream(imgStream, resp);
         } catch (e) {
             this.handleError(e, resp);
         }

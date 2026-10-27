@@ -1,1 +1,18 @@
+# Only what the Dockerfile copies is needed: package*.json, tsconfig.json, eslint.config.mjs,
+# .mocharc.json, src/, test/ (unit tests) and data/ (test fixtures).
+.git
+.gitignore
+.idea
+.vscode
+.env
 node_modules
+dist
+tmp
+fs
+*.log
+Dockerfile
+.dockerignore
+Makefile
+README.md
+.npmignore
+test/api

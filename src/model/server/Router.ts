@@ -1,5 +1,4 @@
-import * as express from "express";
-import {NextFunction, Request, Response} from "express";
+import express, {Express, NextFunction, Request, Response} from "express";
 import MergeHandler from "../handler/MergeHandler";
 import RenderHandler from "../handler/RenderHandler";
 import ThumbnailHandler from "../handler/ThumbnailHandler";
@@ -15,7 +14,7 @@ export default class Router {
         // just keep handlers
     }
 
-    public setUp(app: any): void {
+    public setUp(app: Express): void {
 
         app.use(express.json());
         app.use(this.logCall);

@@ -1,9 +1,9 @@
-import * as fs from "fs";
+import {Readable} from "node:stream";
 
 export default interface IRenderer {
 
-    renderFromUrl(url: string, options: any): Promise<fs.ReadStream>;
+    renderFromUrl(url: string, options: unknown): Promise<Readable>;
 
-    renderFromFile(file: string, options: any): Promise<fs.ReadStream>;
+    renderFromFile(file: string, options: unknown): Promise<Readable>;
 
 }

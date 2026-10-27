@@ -1,0 +1,6 @@
+{
+  "spec": ["dist/test/model/**/*.test.js"],
+  "recursive": true,
+  "exit": true,
+  "timeout": 60000
+}
